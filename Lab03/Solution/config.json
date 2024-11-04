@@ -1,0 +1,26 @@
+{
+	"imports": ["timm", "detectors"],
+	"device": "cuda",
+	"dataset": "CIFAR-10",
+	"data_augmentation": "transforms.Compose([transforms.ToTensor(), transforms.RandomHorizontalFlip(), transforms.RandomRotation(10)])",
+	"model": "timm.create_model('resnet18_cifar10', pretrained=True)",
+	"epochs": 10,
+	"batch_size": 64,
+	"optimizer": "Adam",
+	"optimizer_params": {
+		"lr": 0.001
+	},
+	"loss": "torch.nn.CrossEntropyLoss()",
+	"lr_scheduler": "torch.nn.ReduceLROnPlateau()",
+	"lr_scheduler_params": {
+		"mode": "max",
+		"factor": 0.2,
+		"patience": 10,
+		"threshold": 0.001,
+		"threshold_mode": "rel"
+	},
+	"early_stopping": {
+		"mode": "max",
+		"patience": 10
+	}
+}
